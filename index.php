@@ -78,7 +78,7 @@ function filterTable($query)
 					</div>
 					
 					<div>
-						<table  class="container table table-striped">
+						<table  class="container table table-striped" id="myTable">
 							<tr>
 								<th>Participation Id</th>
 								<th>Employee Name</th>
@@ -100,13 +100,25 @@ function filterTable($query)
 									<td><?php echo $row['participation_fee'] ?></td>
 									<td><?php echo $row['event_date'] ?></td>
 								</tr>
-							<?php
+								<?php
 								endwhile;
-							?>
+								?>
 						</table>
+						<span style="margin-left: 800px !important;" id="val"></span>
 					</div>
 				</form>
 			</div>
 		</div>
+		<script>
+			updateSubTotal(); 
+			function updateSubTotal() {
+				var table = document.getElementById("myTable");
+				let subTotal = Array.from(table.rows).slice(1).reduce((total, row) => {
+					return total + parseFloat(row.cells[5].innerHTML);
+				}, 0);
+				document.getElementById("val").innerHTML = "SubTotal = $" + subTotal;
+				}
+				console.log(subTotal)
+		</script>
 	</body>
 </html>
